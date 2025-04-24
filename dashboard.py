@@ -9,7 +9,6 @@ st.title("📊 Football Analytics Dashboard")
 import sqlite3
 import pandas as pd
 import plotly.express as px
-from ai_model_tab import answer_query
 
 
 
@@ -192,25 +191,3 @@ with tab3:
         )
         st.plotly_chart(fig, use_container_width=True)
    
-
-# # -------------------- TAB 4: AI ASSIST --------------------
-# with tab4:
-#     st.header("Ask AI About Football Data")
-#     user_query = st.text_input("Enter your question:")
-
-#     if st.button("Ask AI"):
-#         with st.spinner("Thinking..."):
-#             sql, result, chart = answer_query(user_query)
-
-#             if isinstance(result, str):
-#                 st.error(result)
-#             else:
-#                 st.subheader("Generated SQL Query")
-#                 st.code(sql, language="sql")
-
-#                 st.subheader("Query Result")
-#                 st.dataframe(result)
-
-#                 if chart:
-#                     st.subheader("Chart")
-#                     st.plotly_chart(chart)
