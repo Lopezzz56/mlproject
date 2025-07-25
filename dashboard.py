@@ -9,12 +9,21 @@ st.title("📊 Football Analytics Dashboard")
 import sqlite3
 import pandas as pd
 import plotly.express as px
+import urllib.request
 
 
 
 
-# Connect to DB
-conn = sqlite3.connect("D:/LOPEZ/Downloads/database.sqlite/database.sqlite")
+db_url = "https://storage.googleapis.com/mlproject_56/database.sqlite/database.sqlite"
+local_path = "database.sqlite"
+
+# Download if not already present
+if not os.path.exists(local_path):
+    urllib.request.urlretrieve(db_url, local_path)
+
+# Connect to the downloaded database
+conn = sqlite3.connect(local_path)
+
 
 # Load Data
 teams_df = pd.read_sql("SELECT team_long_name, team_api_id FROM Team", conn)
@@ -24,7 +33,7 @@ player_attrs_df = pd.read_sql("SELECT * FROM Player_Attributes", conn)
 league_df = pd.read_sql("SELECT * FROM League", conn)
 
 # Tabs
-tab1, tab2, tab3, tab4 = st.tabs(["🏟️ Team Analysis", "🌍 League Comparison", "🧍 Player Analysis", "🧠 AI Insights"])
+tab1, tab2, tab3 = st.tabs(["🏟️ Team Analysis", "🌍 League Comparison", "🧍 Player Analysis"])
 
 # -------------------- TAB 1: TEAM ANALYSIS --------------------
 with tab1:
